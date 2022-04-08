@@ -15,10 +15,9 @@ class StateT2 extends GlobalSimulationT2{
   private ArrayDeque<Job> q = new ArrayDeque<Job>();
   
   public Job current;
-	public int lambda = 150, d = 1, accumulated = 0, noMeasurements = 0,
-    totalCustomers = 0, rejectedCustomers = 0;
+	public int d = 1, lambda = 150, accumulated = 0, noMeasurements = 0;
 
-	Random slump = new Random(); // This is just a random number generator
+	Random slump = new Random();
 
 	
 	// The following method is called by the main program each time a new event has been fetched
@@ -40,14 +39,10 @@ class StateT2 extends GlobalSimulationT2{
 		}
 	}
 	
-	// The following methods defines what should be done when an event takes place. This could
-	// have been placed in the case in treatEvent, but often it is simpler to write a method if 
-	// things are getting more complicated than this.
-	
 	private void arrival(){
     startServingIfEmpty(Job.A);
     q.add(Job.A);
-		insertEvent(ARRIVAL, time + getExponential());
+		insertEvent(ARRIVAL, time + getExponential(lambda));
 	}
 
   private void sleep() {
@@ -83,6 +78,12 @@ class StateT2 extends GlobalSimulationT2{
     }
   }
 
+  /**
+   * Get and remove the next job to serve in the queue.
+   * If there is a job of the preferred type we retrieve
+   * that job, otherwise any job suffices.
+   * @return The job which was chosen and removed from the queue.
+   */
   private Job getNextJob() {
     Job preferredJob = Job.B;
 
@@ -94,7 +95,12 @@ class StateT2 extends GlobalSimulationT2{
     return q.pop();
   }
 
-  private double getExponential() {
+  /**
+   * Used to generate an exponentially distributed variable.
+   * @param lambda is also defined as 1/mean.
+   * @return the generated value.
+   */
+  private double getExponential(double lambda) {
     return Math.log(1 - slump.nextDouble())/(-lambda);
   }
 }
