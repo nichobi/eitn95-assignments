@@ -13,10 +13,8 @@ class StateT2 extends GlobalSimulationT2{
     Job.B, 0.004
   );
   private ArrayDeque<Job> q = new ArrayDeque<Job>();
-  
   public Job current;
 	public int d = 1, lambda = 150, accumulated = 0, noMeasurements = 0;
-
 	Random slump = new Random();
 
 	
@@ -85,7 +83,7 @@ class StateT2 extends GlobalSimulationT2{
    * @return The job which was chosen and removed from the queue.
    */
   private Job getNextJob() {
-    Job preferredJob = Job.B;
+    Job preferredJob = Job.A;
 
     if(q.remove(preferredJob)) {
       return preferredJob;
