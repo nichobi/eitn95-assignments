@@ -1,3 +1,5 @@
+package Writetofile;
+
 public class EventList{
 	
 	public static Event list, last;
