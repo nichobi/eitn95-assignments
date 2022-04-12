@@ -4,6 +4,8 @@
 // This class defines the signal list. If one wants to send more information than here,
 // one can add the extra information in the Signal class and write an extra sendSignal method 
 // with more parameters. 
+package T4;
+
 
 public class SignalList {
 	private static Signal list, last;

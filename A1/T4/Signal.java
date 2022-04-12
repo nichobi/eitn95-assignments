@@ -3,6 +3,8 @@
 
 // This class defines a signal. What can be seen here is a minimum. If one wants to add more
 // information just do it here. 
+package T4;
+
 
 class Signal {
 	public Proc destination;
