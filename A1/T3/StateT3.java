@@ -1,7 +1,9 @@
 package T3;
 
-import Event.*;
 import java.util.*;
+
+import T1.*;
+
 import java.io.*;
 
 class StateT3 extends GlobalSimulation{
@@ -15,7 +17,7 @@ class StateT3 extends GlobalSimulation{
 	public LinkedList<Double> queue2 = new LinkedList<>();
 
 	Random slump = new Random(); // This is just a random number generator
-	public static final double MEAN_ARRIVAL = 2, Q1_MEAN_SERVICE = 1, Q2_MEAN_SERVICE = 1;
+	public static double MEAN_ARRIVAL = 2, Q1_MEAN_SERVICE = 1, Q2_MEAN_SERVICE = 1;
 
 	
 	// The following method is called by the main program each time a new event has been fetched

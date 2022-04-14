@@ -1,4 +1,4 @@
-package Event;
+package T1;
 
 import java.util.*;
 import java.io.*;
@@ -8,13 +8,17 @@ public class MainSimulation extends GlobalSimulation{
  
     public static void main(String[] args) throws IOException {
     	Event actEvent;
-    	State actState = new State(); // The state that shoud be used
-    	// Some events must be put in the event list at the beginning
-      insertEvent(ARRIVAL, 0);  
-      insertEvent(MEASURE, 5);
-      
-      // The main simulation loop
-    	while (time < 5000){
+    	State actState = new State();
+
+		State.INTER_ARRIVAL = 1;
+		State.MEAN_SERVICE_Q1 = 2.1;
+		State.SERVICE_Q2 = 2.0;
+		
+		insertEvent(ARRIVAL, 0);  
+		insertEvent(MEASURE, 5);
+		
+      	// The main simulation loop
+    	while (time < 10000000){
     		actEvent = eventList.fetchEvent();
     		time = actEvent.eventTime;
     		actState.treatEvent(actEvent);

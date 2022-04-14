@@ -1,4 +1,4 @@
-package Event;
+package T1;
 
 import java.util.*;
 import java.io.*;
@@ -12,7 +12,8 @@ class State extends GlobalSimulation{
 
 	Random slump = new Random(); // This is just a random number generator
 	public static int INTER_ARRIVAL = 1;
-	public static int SERVICE_Q2 = 2;
+	public static double MEAN_SERVICE_Q1 = 2.1;
+	public static double SERVICE_Q2 = 2.0;
 	
 	// The following method is called by the main program each time a new event has been fetched
 	// from the event list in the main loop. 
@@ -40,7 +41,7 @@ class State extends GlobalSimulation{
 	private void arrival(){
 		totalCustomers++;
 		if (numberInQueue == 0)
-			insertEvent(PROGRESS, time + getExponential(2.1));
+			insertEvent(PROGRESS, time + getExponential(MEAN_SERVICE_Q1));
 		if(numberInQueue < 10)
 			numberInQueue++;
 		else
@@ -54,7 +55,7 @@ class State extends GlobalSimulation{
 		numberInQueue--;
 		numberInQueue2++;
 		if (numberInQueue > 0)
-			insertEvent(PROGRESS, time + getExponential(2.1));
+			insertEvent(PROGRESS, time + getExponential(MEAN_SERVICE_Q1));
 	}
 	
 	private void ready(){
