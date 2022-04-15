@@ -6,7 +6,7 @@ class Dispatcher extends Proc{
   int roundRobinIndex;
   ArrayList<QS> qs = new ArrayList<QS>();
   int queueSize = 5;
-  int balanceAlgo = 1;
+  int balanceAlgo = RANDOM;
   int accumulated = 0, noMeasurements = 0;
   int activeAccum = 0;
 
@@ -19,19 +19,19 @@ class Dispatcher extends Proc{
 	public void TreatSignal(Signal x){
 		switch (x.signalType){
 			case ARRIVAL:{
-                QS receiver = qs.get(0);
-                switch(balanceAlgo) {
-                    case RANDOM: {
-                        receiver = randomQueue();
-                    }
-                    case ROUND_ROBIN: {
-                        receiver = roundRobin();
-                    }
-                    case LOAD_BALANCE: {
-                        receiver = activeLoadBalance();
-                    }
-                }
-                SignalList.SendSignal(ARRIVAL, receiver, time);
+        QS receiver = qs.get(0);
+        switch(balanceAlgo) {
+            case RANDOM: 
+              receiver = randomQueue();
+              break;
+            case ROUND_ROBIN: 
+              receiver = roundRobin();
+              break;
+            case LOAD_BALANCE:
+              receiver = activeLoadBalance();
+              break;
+        }
+        SignalList.SendSignal(ARRIVAL, receiver, time);
 			} break;
 
       case MEASURE: {
