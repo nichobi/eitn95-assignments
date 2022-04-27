@@ -51,6 +51,8 @@ class StateT2 extends GlobalSimulationT2{
 	private void ready(){
     if(current == Job.A) {
       insertEvent(SLEEP, time + d);
+      // Comment above and uncomment below for task 2
+      // insertEvent(SLEEP, time + getExponential(1.0/d));
     }
     q.remove(current);
     if(!q.isEmpty()) {
@@ -62,11 +64,11 @@ class StateT2 extends GlobalSimulationT2{
 	private void measure(){
 		accumulated = accumulated + q.size();
 		noMeasurements++;
-		insertEvent(MEASURE, time + slump.nextDouble()*10);
+		insertEvent(MEASURE, time + 0.1);
 	}
 
   /***
-   * Kickstarts the server if the queue is empty.
+   * Kickstarts the server if the queue is empty (but a new job has arrived).
    * @param job is the job which the server is going to start serving.
    */
   private void startServingIfEmpty(Job job) {
@@ -83,7 +85,9 @@ class StateT2 extends GlobalSimulationT2{
    * @return The job which was chosen and removed from the queue.
    */
   private Job getNextJob() {
-    Job preferredJob = Job.A;
+    Job preferredJob = Job.B;
+    // Comment above and uncomment below for task 3
+    // Job preferredJob = Job.A;
 
     if(q.remove(preferredJob)) {
       return preferredJob;
