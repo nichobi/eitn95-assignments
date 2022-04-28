@@ -1,7 +1,6 @@
 package Writetofile;
 
 import java.util.*;
-import java.io.*;
 
 class State{
 	public int numberInQueue = 0, accumulated = 0, noMeasurements = 0;

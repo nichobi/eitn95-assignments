@@ -1,14 +1,9 @@
 package T3;
 
-import java.util.*;
-
 import T1.*;
-
 import java.io.*;
 
-
 public class MainSimulationT3 extends GlobalSimulation{
- 
     public static void main(String[] args) throws IOException {
     	Event actEvent;
     	StateT3 actState = new StateT3();

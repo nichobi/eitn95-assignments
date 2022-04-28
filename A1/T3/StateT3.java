@@ -1,10 +1,7 @@
 package T3;
 
 import java.util.*;
-
 import T1.*;
-
-import java.io.*;
 
 class StateT3 extends GlobalSimulation{
 	

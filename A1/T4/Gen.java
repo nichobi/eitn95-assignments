@@ -1,13 +1,10 @@
 package T4;
 
 import java.util.*;
-import java.io.*;
 
 //Denna klass ärver Proc, det gör att man kan använda time och signalnamn utan punktnotation
 //It inherits Proc so that we can use time and the signal names without dot notation 
-
 class Gen extends Proc {
-
 	// Slumptalsgeneratorn startas:
 	// The random number generator is started:
 	Random slump = new Random();

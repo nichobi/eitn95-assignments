@@ -1,7 +1,6 @@
 package T2;
 
 import java.util.*;
-import java.io.*;
 
 class StateT2 extends GlobalSimulationT2{
   private static enum Job {
@@ -12,11 +11,10 @@ class StateT2 extends GlobalSimulationT2{
     Job.A, 0.002,
     Job.B, 0.004
   );
-  private ArrayDeque<Job> q = new ArrayDeque<Job>();
+  private int queue[] = {0, 0};
   public Job current;
 	public int d = 1, lambda = 150, accumulated = 0, noMeasurements = 0;
 	Random slump = new Random();
-
 	
 	// The following method is called by the main program each time a new event has been fetched
 	// from the event list in the main loop. 
@@ -39,13 +37,13 @@ class StateT2 extends GlobalSimulationT2{
 	
 	private void arrival(){
     startServingIfEmpty(Job.A);
-    q.add(Job.A);
+    addJobQueueSize(Job.A, 1);
 		insertEvent(ARRIVAL, time + getExponential(lambda));
 	}
 
   private void sleep() {
     startServingIfEmpty(Job.B);
-    q.add(Job.B);
+    addJobQueueSize(Job.B, 1);
   }
 	
 	private void ready(){
@@ -54,26 +52,44 @@ class StateT2 extends GlobalSimulationT2{
       // Comment above and uncomment below for task 2
       // insertEvent(SLEEP, time + getExponential(1.0/d));
     }
-    q.remove(current);
-    if(!q.isEmpty()) {
+    addJobQueueSize(current, -1);
+    if(queueSize() != 0) {
       current = getNextJob();
       insertEvent(READY, time + servingTime.get(current));
     }
 	}
 	
 	private void measure(){
-		accumulated = accumulated + q.size();
+		accumulated = accumulated + queueSize();
 		noMeasurements++;
 		insertEvent(MEASURE, time + 0.1);
 	}
 
+  /**
+   * Adds the amount of a certain job in the queue. Negative numbers
+   * are also supported in case of removing certain jobs from the queue.
+   * @param job The job to add or subtract from.
+   * @param nbr The number which should be added or removed of the given job.
+   */
+  private void addJobQueueSize(Job job, int nbr) {
+    if(job == Job.A) {
+      queue[0] += nbr;
+    } else if(job == Job.B) {
+      queue[1] += nbr;
+    }
+  }
+
+  private int queueSize() {
+    return queue[0] + queue[1];
+  }
+
   /***
    * Kickstarts the server if the queue is empty (but a new job has arrived).
-   * @param job is the job which the server is going to start serving.
+   * @param arrivedJob is the job which the server is going to start serving.
    */
-  private void startServingIfEmpty(Job job) {
-    if(q.isEmpty()) {
-      current = job;
+  private void startServingIfEmpty(Job arrivedJob) {
+    if(queueSize() == 0) {
+      current = arrivedJob;
 			insertEvent(READY, time + servingTime.get(current));
     }
   }
@@ -89,12 +105,20 @@ class StateT2 extends GlobalSimulationT2{
     // Comment above and uncomment below for task 3
     // Job preferredJob = Job.A;
 
-    if(q.remove(preferredJob)) {
-      return preferredJob;
+    int pref = 1;
+    Job unpreferred = Job.A;
+
+    /* For task 3 we change the unpreffered job to B */
+    if(preferredJob == Job.A) {
+      pref = 0;
+      unpreferred = Job.B;
     }
-    
-    /* Otherwise return whatever job is available */
-    return q.pop();
+
+    if(queue[pref] != 0) {
+      return preferredJob;
+    } else {
+      return unpreferred;
+    }
   }
 
   /**

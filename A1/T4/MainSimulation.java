@@ -1,13 +1,10 @@
 package T4;
 
-import java.util.*;
 import java.io.*;
 
 //Denna klass ärver Global så att man kan använda time och signalnamnen utan punktnotation
 //It inherits Proc so that we can use time and the signal names without dot notation
-
 public class MainSimulation extends Global {
-
 	public static void main(String[] args) throws IOException {
 
 		// Signallistan startas och actSignal deklareras. actSignal är den senast
