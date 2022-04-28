@@ -1,6 +1,5 @@
 package Process;
 
-import java.util.*;
 import java.io.*;
 
 //Denna klass �rver Global s� att man kan anv�nda time och signalnamnen utan punktnotation

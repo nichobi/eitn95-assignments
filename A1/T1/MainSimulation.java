@@ -1,6 +1,5 @@
 package T1;
 
-import java.util.*;
 import java.io.*;
 
 

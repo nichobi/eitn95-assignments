@@ -1,8 +1,6 @@
 package T4;
 
 import java.util.*;
-import java.io.*;
-import java.sql.Time;
 
 // This class defines a simple queuing system with one server. It inherits Proc so that we can use time and the
 // signal names without dot notation
