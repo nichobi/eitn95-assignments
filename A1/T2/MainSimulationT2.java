@@ -1,13 +1,13 @@
 package T2;
 
-import java.util.*;
 import java.io.*;
-
 
 public class MainSimulationT2 extends GlobalSimulationT2{
   public static void main(String[] args) throws IOException {
     int iterations = 1000;
     double total = 0;
+
+    System.out.println("Running " + Integer.toString(iterations) + " simulations...");
     for(int i = 0; i < iterations; i++) {
       total += runSimulation();
     }
@@ -33,8 +33,6 @@ public class MainSimulationT2 extends GlobalSimulationT2{
     }
     
     // Printing the result of the simulation, in this case a mean value
-    double mean = 1.0*actState.accumulated/actState.noMeasurements;
-    System.out.println(mean);
-    return mean;
+    return  1.0*actState.accumulated/actState.noMeasurements;
   }
 }
