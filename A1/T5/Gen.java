@@ -1,3 +1,5 @@
+package T5;
+
 import java.util.*;
 
 //Denna klass �rver Proc, det g�r att man kan anv�nda time och signalnamn utan punktnotation

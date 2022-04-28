@@ -1,3 +1,5 @@
+package T6;
+
 public class SignalListT6 {
 	private  static SignalT6 list, last;
 
