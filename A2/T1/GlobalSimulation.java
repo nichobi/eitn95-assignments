@@ -1,12 +1,9 @@
 package T1;
 
 public class GlobalSimulation {
-
 	// This class contains the definition of the events that shall take place in the
-	// simulation. It also contains the global time, the event list and also a
-	// method
-	// for insertion of events in the event list. That is just for making the code
-	// in
+	// simulation. It also contains the global time, the event list and also a method
+	// for insertion of events in the event list. That is just for making the code in
 	// MainSimulation.java and State.java simpler (no dot notation is needed).
 
 	public static final int ARRIVAL = 1, READY = 2, MEASURE = 3; // The events, add or remove if needed!

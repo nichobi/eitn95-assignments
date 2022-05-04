@@ -12,8 +12,7 @@ class State extends GlobalSimulation {
 	Random slump = new Random(); // This is just a random number generator
 
 	// The following method is called by the main program each time a new event has
-	// been fetched
-	// from the event list in the main loop.
+	// been fetched from the event list in the main loop.
 	public void treatEvent(Event x) {
 		switch (x.eventType) {
 			case ARRIVAL:
@@ -29,11 +28,8 @@ class State extends GlobalSimulation {
 	}
 
 	// The following methods defines what should be done when an event takes place.
-	// This could
-	// have been placed in the case in treatEvent, but often it is simpler to write
-	// a method if
-	// things are getting more complicated than this.
-
+	// This could have been placed in the case in treatEvent, but often it is 
+	// simpler to write a method if things are getting more complicated than this.
 	private void arrival() {
 		if (activeServers < totalServers) {
 			insertEvent(READY, time + X);

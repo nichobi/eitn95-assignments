@@ -11,8 +11,7 @@ public class EventListClass {
 	}
 
 	// The method insertEvent creates a new event, and searches the list of events
-	// for the
-	// right place to put the new event.
+	// for the right place to put the new event.
 
 	public void InsertEvent(int type, double TimeOfEvent) {
 		Event dummy, predummy;
@@ -30,8 +29,7 @@ public class EventListClass {
 	}
 
 	// The following method removes and returns the first event in the list. That is
-	// the
-	// event with the smallest time stamp, i.e. the next thing that shall take
+	// the event with the smallest time stamp, i.e. the next thing that shall take
 	// place.
 
 	public Event fetchEvent() {
