@@ -8,7 +8,7 @@ for i=1:6
 
     figure;
     plot(t(:, 2));
-    if i == 4
+    if i >= 4
         % Plot 4 y range differs from 5-6 without this
         ylim([0 70]);
     end
@@ -38,16 +38,21 @@ end
 % the probability along with the threshold.
 function [min, max] = thresholds(percentile, A, i)
     imageFile = sprintf('./results/Task-%d-threshold.png', i);
-
-    srtd = sort(A);
-    [M, ~] = size(srtd);
+    
+    % Remove the 20 first values since they might be in the transient phase
+    [M, ~] = size(A);
+    valid = A(20:M);
+    M = M - 20;
+    
+    srtd = sort(valid);
     remove = round(M*(100-percentile)/200);
-    min = srtd(remove);
+    min = srtd(remove + 1);
     max = srtd(M-remove);
     
     figure;
     plot(srtd);
     yline(min, 'r');
     yline(max, 'r');
+    ylim([0 70]);
     saveas(gcf, imageFile)
 end
