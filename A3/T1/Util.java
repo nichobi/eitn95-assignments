@@ -31,4 +31,9 @@ public class Util {
 		double lambda = 1/mean;
 		return Math.log(1 - rand.nextDouble())/(-lambda);
 	}
+
+	public static boolean withinRange(double x,double y, double x2, double y2, double r) {
+		return Math.sqrt(Math.pow(x-x2, 2)+Math.pow(y-y2, 2)) < r;
+	}
+	
 }

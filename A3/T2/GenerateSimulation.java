@@ -1,4 +1,4 @@
-package T1;
+package T2;
 
 import java.io.FileInputStream;
 import java.io.FileWriter;
@@ -6,8 +6,7 @@ import java.io.IOException;
 import java.util.*;
 
 public class GenerateSimulation {
-
-    private final static String CONFIG_PATH = "A3/T1/.config";
+    private final static String CONFIG_PATH = "A3/T2/.config";
     private static Properties config;
     private static double[] coordinates;
     private static Random random = new Random();
@@ -20,30 +19,26 @@ public class GenerateSimulation {
 			fis.close();
 		}
     }
+
     public static void main(String[] args) {
         try {
             loadConfig(CONFIG_PATH);
 
-            for (String n : config.getProperty("n").split(" ")) {
-                FileWriter fw = new FileWriter("A3/T1/" + n + ".conf");
-                fw.write("n = " + n + "\n");
-                fw.write("Tp = " + config.getProperty("Tp") + "\n");
-                fw.write("ts = " + config.getProperty("ts") + "\n");
-                fw.write("r = "  + config.getProperty("r")  + "\n");
-                coordinates = generateCoordinates(Integer.parseInt(n));
-                saveCoordinates(fw);
-                fw.close();
-            }
+            FileWriter fw = new FileWriter("A3/T2/test.conf");
+            fw.write("t = " + config.getProperty("t") + "\n");
+            fw.write("v = " + config.getProperty("v") + "\n");
+            coordinates = generateCoordinates(Global.STUDENTS);
+            saveCoordinates(fw);
+            fw.close();
         } catch(Exception err) {
             err.printStackTrace();
         };
-        
     }
     
     private static double[] generateCoordinates(int n) {
         coordinates = new double[2*n];
         for (int i = 0; i < 2*n; i++) {
-            coordinates[i] = random.nextDouble()*10000;
+            coordinates[i] = random.nextDouble()*Global.L;
         }
         return coordinates;
     }
@@ -52,7 +47,8 @@ public class GenerateSimulation {
         int n = coordinates.length/2;
         try {
             for(int i = 0; i < n; i++)  {
-                fw.write(Integer.toString(i) + "=" + coordinates[2*i] + " " + coordinates[2*i+1] + "\n");
+                fw.write(Integer.toString(i) + Global.EQUALS + coordinates[2*i] +
+                    Global.COMMA + coordinates[2*i+1] + "\n");
             }
         } catch (IOException e) {
             e.printStackTrace();

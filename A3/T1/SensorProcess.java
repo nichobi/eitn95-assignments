@@ -2,11 +2,9 @@ package T1;
 
 import java.util.*;
 
-import Process.*;
-
 // This class defines a simple queuing system with one server. It inherits Proc so that we can use time and the
 // signal names without dot notation
-class QS extends Proc {
+class SensorProcess extends Proc {
 	public int numberInQueue = 0, accumulated, noMeasurements;
 	public Proc gateway;
 	public double meanSleep = 4000;

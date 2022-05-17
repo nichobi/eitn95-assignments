@@ -2,16 +2,17 @@ package T1;
 
 import java.util.*;
 
-import Process.*;
 
 // This class defines a simple queuing system with one server. It inherits Proc so that we can use time and the
 // signal names without dot notation
-class QS extends Proc {
+class GatewayProcess extends Proc {
 	public int nbrSuccessful = 0, nbrTotal = 0, noMeasurements = 0;
 	public int receiving = 0;
 	public boolean fail = false;
 	Random slump = new Random();
+	public double x = 5000, y = 5000;
 
+	@Override
 	public void TreatSignal(Signal x){
 		switch (x.signalType){
 
@@ -20,7 +21,9 @@ class QS extends Proc {
 				receiving++;
 				if(receiving > 1) {
 					fail = true;
+					//System.out.println("Receiving multiple.");
 				}
+				//System.out.println("Receiving " + receiving);}
 				
 			} break;
 
@@ -31,14 +34,18 @@ class QS extends Proc {
 				receiving--;
 				if(receiving == 0) {
 					fail = false;
+					//System.out.println("Receiving none.");
 				}
 			} break;
 
 			case MEASURE:{
 				noMeasurements++;
-				accumulated = accumulated + nbrSuccessful;
-				SignalList.SendSignal(MEASURE, this, time + 2*slump.nextDouble());
+				double packetLoss = (double)nbrSuccessful / (double) nbrTotal;
+				packetLossMeasurements.add(packetLoss);
+				confWidth = Util.calculateConfidenceWidth(packetLossMeasurements);
+				SignalList.SendSignal(MEASURE, this, time + 5000*slump.nextDouble());
 			} break;
 		}
 	}
+
 }
