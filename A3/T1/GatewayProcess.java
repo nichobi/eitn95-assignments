@@ -11,6 +11,7 @@ class GatewayProcess extends Proc {
 	public boolean fail = false;
 	Random slump = new Random();
 	public double x = 5000, y = 5000;
+	public ArrayList<Sensor> transmittingSensors = new ArrayList<>();
 
 	@Override
 	public void TreatSignal(Signal x){
@@ -18,12 +19,10 @@ class GatewayProcess extends Proc {
 
 			case START_RECEIVING:{
 				nbrTotal++;
-				receiving++;
-				if(receiving > 1) {
+				//transmittingSensors.add((Sensor) x.source);
+				if(transmittingSensors.size() > 1) {
 					fail = true;
-					//System.out.println("Receiving multiple.");
 				}
-				//System.out.println("Receiving " + receiving);}
 				
 			} break;
 
@@ -31,10 +30,9 @@ class GatewayProcess extends Proc {
 				if(!fail) {
 					nbrSuccessful++;
 				}
-				receiving--;
-				if(receiving == 0) {
+				transmittingSensors.remove((Sensor) x.source);
+				if(transmittingSensors.size() == 0) {
 					fail = false;
-					//System.out.println("Receiving none.");
 				}
 			} break;
 
@@ -43,7 +41,11 @@ class GatewayProcess extends Proc {
 				double packetLoss = (double)nbrSuccessful / (double) nbrTotal;
 				packetLossMeasurements.add(packetLoss);
 				confWidth = Util.calculateConfidenceWidth(packetLossMeasurements);
-				SignalList.SendSignal(MEASURE, this, time + 5000*slump.nextDouble());
+				SignalList.SendSignal(MEASURE, this, this, time + 5000*slump.nextDouble());
+				System.out.println(confWidth);
+				System.out.println(transmittingSensors.size());
+				System.out.println("Transmitting sensors:");
+				System.out.println(transmittingSensors);
 			} break;
 		}
 	}
