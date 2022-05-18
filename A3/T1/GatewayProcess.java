@@ -42,10 +42,7 @@ class GatewayProcess extends Proc {
 				packetLossMeasurements.add(packetLoss);
 				confWidth = Util.calculateConfidenceWidth(packetLossMeasurements);
 				SignalList.SendSignal(MEASURE, this, this, time + 5000*slump.nextDouble());
-				System.out.println(confWidth);
-				System.out.println(transmittingSensors.size());
-				System.out.println("Transmitting sensors:");
-				System.out.println(transmittingSensors);
+				//System.out.println(confWidth);
 			} break;
 		}
 	}

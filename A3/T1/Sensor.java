@@ -4,10 +4,10 @@ import java.util.*;
 
 public class Sensor extends Proc {
 	private static String EQUALS = " = ", COMMA = ", ";
-	private static boolean shouldSense = false;
+	private static boolean shouldSense = true;
 	private int id;
 	public double x, y, radius;
-	private double lb = 1000, ub = 10000;
+	private double lb = 4000, ub = 5000;
 
 	public GatewayProcess gateway;
 	public double meanSleep, Tp;
@@ -58,12 +58,18 @@ public class Sensor extends Proc {
 				}
 				if(!collision){
 					gateway.transmittingSensors.add(this);
-
-					SignalList.SendSignal(START_RECEIVING, this, gateway, time);
-					SignalList.SendSignal(STOP_RECEIVING, this, gateway, time + Tp);
+					if (Util.withinRange(x, y, gateway.x, gateway.y, radius)) {
+						SignalList.SendSignal(START_RECEIVING, this, gateway, time);
+						SignalList.SendSignal(STOP_RECEIVING, this, gateway, time + Tp);
+					} else {
+						SignalList.SendSignal(STOP_TRANSMIT, this, this, time + Tp);
+					}
 					SignalList.SendSignal(TRANSMIT, this, this, time + Tp + Util.getExponential(meanSleep));
 				}
 			} break;
+			case STOP_TRANSMIT:{
+				gateway.transmittingSensors.remove(this);
+			}
 		}
 	}
 
