@@ -1,11 +1,17 @@
 package T2;
 
+import java.util.HashSet;
+
 public class Person {
+	private boolean talking;
 	private int id;
+	private HashSet<Person> interactions;
 	private double x, y;
 
 	public Person(int id, double x, double y) {
+		this.talking = false;
 		this.id = id;
+		this.interactions = new HashSet<Person>();
 		this.x = x;
 		this.y = y;
 	}
@@ -29,6 +35,10 @@ public class Person {
 		this.y = Double.parseDouble(coordArray[1]);
 	}
 
+	public boolean isTalking() {
+		return this.talking;
+	}
+
 	public int getId() {
 		return this.id;
 	}
@@ -39,6 +49,19 @@ public class Person {
 
 	public double getY() {
 		return this.y;
+	}
+
+	public void setTalking(boolean talking) {
+		this.talking = talking;
+	}
+
+	public void interactedWith(Person p2) {
+		interactions.add(p2);
+		talking = false;
+	}
+
+	public boolean done() {
+		return interactions.size() == Global.STUDENTS - 1;
 	}
 
 	/**
