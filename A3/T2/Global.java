@@ -1,9 +1,11 @@
 package T2;
 
 public class Global {
-	public static final int ARRIVAL = 1;
-	public static double time = 0;
+	public static final int MOVE = 0, MEASURE = 1;
+	public static final double MOVE_TIME = 0.5, MEASURE_TIME = 1.0;
 
+	public static double time = 0;
+  public static int interactedWithAll = 0;
 
 	public static final String EQUALS = " = ", COMMA = ", ";
   public static final int T = 1, L = 20, STUDENTS = 20;

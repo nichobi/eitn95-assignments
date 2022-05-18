@@ -9,7 +9,7 @@ public class Square extends Global {
 	public Square(int x, int y) {
 		this.x = x;
 		this.y = y;
-    this.ids = new ArrayList<Person>();
+    	this.ids = new ArrayList<Person>();
 	}
 
 	public boolean isEmpty() {

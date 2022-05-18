@@ -28,22 +28,22 @@ public class Util {
 		return width;
 	}
 
-	public static int getDirection(Person p) {
+	public static int generateDirection(Person p) {
 		if(p.getX() < 0) {
 			if(p.getY() < 0) {
-				return 1; 									// North east
+				return 1; 						// North east
 			} else if(p.getY() > Global.L) {
-				return 3; 									// South east
+				return 3; 						// South east
 			} else {
-				return rand.nextInt(3) + 1;	// East
+				return rand.nextInt(3) + 1;		// East
 			}
 		} else if(p.getX() > Global.L) {
 			if(p.getY() < 0) {
-				return 7; 									// North west
+				return 7; 						// North west
 			} else if(p.getY() > Global.L) {
-				return 5; 									// South west
+				return 5; 						// South west
 			} else {
-				return rand.nextInt(3) + 5;	// West
+				return rand.nextInt(3) + 5;		// West
 			}
 		} else if (p.getY() < 0) {
 			// Corner cases are already checked
@@ -59,9 +59,12 @@ public class Util {
 		return rand.nextInt(8);
 	}
 
-  public static double getExponential(double mean) {
+	public static int generateDirection() {
+		return rand.nextInt(8);
+	}
+
+  	public static double getExponential(double mean) {
 		double lambda = 1/mean;
 		return Math.log(1 - rand.nextDouble())/(-lambda);
 	}
-
 }

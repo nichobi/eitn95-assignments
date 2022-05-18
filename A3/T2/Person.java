@@ -4,14 +4,17 @@ import java.util.HashSet;
 
 public class Person {
 	private boolean talking;
-	private int id;
+	private int id, movementSpeed, direction;
 	private HashSet<Person> interactions;
-	private double x, y;
+	private double timeInteracted, x, y;
 
 	public Person(int id, double x, double y) {
 		this.talking = false;
 		this.id = id;
+		this.movementSpeed = Global.V;
+		this.direction = Util.generateDirection();
 		this.interactions = new HashSet<Person>();
+		this.timeInteracted = 0;
 		this.x = x;
 		this.y = y;
 	}
@@ -35,7 +38,7 @@ public class Person {
 		this.y = Double.parseDouble(coordArray[1]);
 	}
 
-	public boolean isTalking() {
+	public boolean isInteracting() {
 		return this.talking;
 	}
 
@@ -51,13 +54,43 @@ public class Person {
 		return this.y;
 	}
 
-	public void setTalking(boolean talking) {
+	public void setInteracting(boolean talking) {
 		this.talking = talking;
 	}
 
 	public void interactedWith(Person p2) {
 		interactions.add(p2);
 		talking = false;
+	}
+
+	/**
+	 * We are allowed to neglect calculating diagonal movement speed
+	 * as sqrt(x^2 + y^2) according to Björn.
+	 * 
+	 * @Returns Return true if the new position is inside a new square.
+	 */
+	public boolean move() {
+		double movement = Global.MOVE_TIME * this.movementSpeed;
+
+		// Move in X direction
+		if (1 <= this.direction <= 3) {
+			this.x += movement;
+		} else if (5 <= this.direction <= 7) {
+			this.x -= movement;
+		}
+
+		// Move in Y direction
+		if (this.direction % 7 <= 1) {
+			this.y += movement;
+		} else if (3 <= this.direction <= 5) {
+			this.y -= movement;
+		}
+
+		return (oldX == math.floor(this.x) && oldY == math.floor(this.y))
+	}
+
+	public boolean isSameBox(int x, int y) {
+		return (x == math.floor(this.x) && y == math.floor(this.y))
 	}
 
 	public boolean done() {

@@ -6,10 +6,11 @@ public class Field extends Global {
   private Square[][] squares;
   ArrayList<Person> people;
 
-	public Field(ArrayList<Person> people) {
-    this.squares = new Square[Global.L][Global.L];
-    this.people = people;
+	public Field() {
+    this.people = new ArrayList<Person>();
+	  // TODO: Insert people from config file
 
+    this.squares = new Square[Global.L][Global.L];
     for (int x = 0; x < Global.L; x++) {
       for (int y = 0; y < Global.L; y++) {
         this.squares[x][y] = new Square(x, y);
@@ -21,17 +22,34 @@ public class Field extends Global {
     return squares[x][y].getAvailablePerson();
   }
 
-  public void movePersonToSquare(Person p, int x, int y) {
-    // TODO:
-  }
+  /**
+   * Move everyone who is currently not interacting with another.
+   */
+  public void moveAll() {
+    for (Person p : people) {
+      p.updateInteracting();
 
-  public boolean allDone() {
-    for(Person p : this.people) {
-      if(!p.done()) {
-        return false;
+      if(!p.isInteracting()) {
+        int oldX = Math.floor(p.getX());
+        int oldY = Math.floor(p.getY());
+        p.move();
+
+        if(!p.isSameBox(oldX, oldY)) {
+          squares[oldX][oldY].remove(p);
+          squares[Math.floor(p.getX())][Math.floor(p.getY())]
+          // TODO: Check for available interactions
+        }
       }
     }
-    return true;
   }
 
+  public int peopleDone() {
+    int done = 0;
+    for(Person p : this.people) {
+      if(p.done()) {
+        done++;
+      }
+    }
+    return done;
+  }
 }
