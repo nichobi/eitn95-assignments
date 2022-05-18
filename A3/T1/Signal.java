@@ -7,6 +7,7 @@ package T1;
 // information just do it here. 
 
 public class Signal{
+	public Proc source;
 	public Proc destination;
 	public double arrivalTime;
 	public int signalType;
