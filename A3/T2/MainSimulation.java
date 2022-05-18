@@ -1,7 +1,6 @@
 package T2;
 
 import java.io.*;
-import java.util.ArrayList;
 
 public class MainSimulation extends Global {
 	public static void main(String[] args) throws IOException {
@@ -16,7 +15,7 @@ public class MainSimulation extends Global {
 		insertEvent(MEASURE, 0);
 
 		// The main simulation loop
-		while(!field.allDone()) {
+		while (actState.field.peopleDone() < Global.STUDENTS) {
 			actEvent = eventList.fetchEvent();
 			time = actEvent.eventTime;
 			actState.treatEvent(actEvent);

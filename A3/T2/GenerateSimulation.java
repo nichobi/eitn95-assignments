@@ -13,11 +13,11 @@ public class GenerateSimulation {
 
     private static void loadConfig(String path) throws IOException {
         config = new Properties();
-		if (path != null) {
-			FileInputStream fis = new FileInputStream(path);
-			config.load(fis);
-			fis.close();
-		}
+        if (path != null) {
+            FileInputStream fis = new FileInputStream(path);
+            config.load(fis);
+            fis.close();
+        }
     }
 
     public static void main(String[] args) {
@@ -30,25 +30,26 @@ public class GenerateSimulation {
             coordinates = generateCoordinates(Global.STUDENTS);
             saveCoordinates(fw);
             fw.close();
-        } catch(Exception err) {
+        } catch (Exception err) {
             err.printStackTrace();
-        };
+        }
+        ;
     }
-    
+
     private static double[] generateCoordinates(int n) {
-        coordinates = new double[2*n];
-        for (int i = 0; i < 2*n; i++) {
-            coordinates[i] = random.nextDouble()*Global.L;
+        coordinates = new double[2 * n];
+        for (int i = 0; i < 2 * n; i++) {
+            coordinates[i] = random.nextDouble() * Global.L;
         }
         return coordinates;
     }
 
     private static void saveCoordinates(FileWriter fw) {
-        int n = coordinates.length/2;
+        int n = coordinates.length / 2;
         try {
-            for(int i = 0; i < n; i++)  {
-                fw.write(Integer.toString(i) + Global.EQUALS + coordinates[2*i] +
-                    Global.COMMA + coordinates[2*i+1] + "\n");
+            for (int i = 0; i < n; i++) {
+                fw.write(Integer.toString(i) + Global.EQUALS + coordinates[2 * i] +
+                        Global.COMMA + coordinates[2 * i + 1] + "\n");
             }
         } catch (IOException e) {
             e.printStackTrace();

@@ -3,13 +3,13 @@ package T2;
 import java.util.*;
 
 public class Square extends Global {
-  public int x, y;
-  public ArrayList<Person> ids;
+	public int x, y;
+	public ArrayList<Person> ids;
 
 	public Square(int x, int y) {
 		this.x = x;
 		this.y = y;
-    	this.ids = new ArrayList<Person>();
+		this.ids = new ArrayList<Person>();
 	}
 
 	public boolean isEmpty() {
@@ -18,7 +18,7 @@ public class Square extends Global {
 
 	public Person getAvailablePerson() {
 		for (Person p : ids) {
-			if(!p.isTalking()) {
+			if (!p.isInteracting()) {
 				return p;
 			}
 		}
@@ -27,5 +27,9 @@ public class Square extends Global {
 
 	public void addPerson(Person p) {
 		ids.add(p);
+	}
+
+	public void removePerson(Person p) {
+		ids.remove(p);
 	}
 }
