@@ -1,11 +1,11 @@
 package T2;
 
-import java.util.HashSet;
+import java.util.HashMap;
 
 public class Person {
 	private boolean talking;
 	private int id, direction;
-	private HashSet<Person> interactions;
+	public HashMap<Person, Integer> interactions;
 	private double movementSpeed, x, y;
 
 	public Person(int id, double x, double y) {
@@ -13,7 +13,7 @@ public class Person {
 		this.id = id;
 		this.movementSpeed = Global.getV();
 		this.direction = Util.generateDirection();
-		this.interactions = new HashSet<Person>();
+		this.interactions = new HashMap<Person, Integer>();
 		this.x = x;
 		this.y = y;
 	}
@@ -34,7 +34,7 @@ public class Person {
 		this.talking = false;
 		this.movementSpeed = Global.getV();
 		this.direction = Util.generateDirection();
-		this.interactions = new HashSet<Person>();
+		this.interactions = new HashMap<Person, Integer>();
 
 		this.id = id;
 		this.x = Double.parseDouble(coordArray[0]);
@@ -63,7 +63,17 @@ public class Person {
 	}
 
 	public void finishInteraction(Person p2) {
-		interactions.add(p2);
+		Integer meetingTime = interactions.get(p2);
+		if (meetingTime == null) {
+			meetingTime = 1;
+		} else {
+			meetingTime++;
+		}
+
+		interactions.put(p2, meetingTime);
+
+
+		//interactions.add(p2);
 		talking = false;
 	}
 

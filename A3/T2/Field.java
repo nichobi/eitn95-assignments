@@ -126,7 +126,6 @@ public class Field extends Global {
           i++;
           continue;
         }
-        System.out.println("Person added");
         people.add(new Person(line));
 			}
 			reader.close();
