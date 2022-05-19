@@ -25,12 +25,16 @@ public class Person {
 		}
 		int id = Integer.parseInt(split[0]);
 
-		String coordinates = split[1].substring(1, split[1].length()); // Remove []
+		String coordinates = split[1].substring(1, split[1].length() - 1); // Remove []
 		String[] coordArray = coordinates.split(Global.COMMA);
 
 		if (coordArray.length != 2) {
 			throw new ArrayIndexOutOfBoundsException();
 		}
+		this.talking = false;
+		this.movementSpeed = Global.getV();
+		this.direction = Util.generateDirection();
+		this.interactions = new HashSet<Person>();
 
 		this.id = id;
 		this.x = Double.parseDouble(coordArray[0]);
@@ -101,6 +105,13 @@ public class Person {
 		sq[0] = (int) Math.floor(this.x);
 		sq[1] = (int) Math.floor(this.y);
 		return sq;
+	}
+
+	public void moveIntoRoom() {
+		this.x = Math.min(this.x, Global.L - 0.00001);
+		this.x = Math.max(this.x, 0);
+		this.y = Math.min(this.y, Global.L - 0.00001);
+		this.y = Math.max(this.y, 0);
 	}
 
 	/**

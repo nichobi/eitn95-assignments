@@ -1,6 +1,5 @@
 package T2;
 import java.util.*;
-import java.io.*;
 
 class State extends GlobalSimulation{
     

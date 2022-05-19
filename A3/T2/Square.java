@@ -16,9 +16,9 @@ public class Square extends Global {
 		return ids.size() == 0;
 	}
 
-	public Person getInteractablePerson() {
+	public Person getInteractablePerson(Person interactor) {
 		for (Person p : ids) {
-			if (!p.isInteracting()) {
+			if (!p.isInteracting() && p != interactor) {
 				return p;
 			}
 		}

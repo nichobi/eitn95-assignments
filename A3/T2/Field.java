@@ -28,8 +28,9 @@ public class Field extends Global {
     interactionQueue = new ArrayDeque<Interaction>();
   }
 
-  public Person interactablePersonInSquare(int x, int y) {
-    return squares[x][y].getInteractablePerson();
+  public Person interactablePersonInSquare(Person p) {
+    int[] square = p.getCurrentSquare();
+    return squares[square[0]][square[1]].getInteractablePerson(p);
   }
 
   /**
@@ -42,15 +43,21 @@ public class Field extends Global {
         p.move();
 
         if(p.isSameSquare(oldSquare[0], oldSquare[1])) {
-          // Hasn't moved to a new square
+          // Has not moved to a new square
           continue;
         }
 
+        // Has moved to a new square
         int[] newSquare = p.getCurrentSquare();
+        if(!squareWithinBounds(newSquare)) {
+          p.moveIntoRoom();
+          newSquare = p.getCurrentSquare();
+        }
         squares[oldSquare[0]][oldSquare[1]].removePerson(p);
         squares[newSquare[0]][newSquare[1]].addPerson(p);
 
-        Person interactablePerson = interactablePersonInSquare(newSquare[0], newSquare[1]);
+
+        Person interactablePerson = interactablePersonInSquare(p);
         if(interactablePerson == null) {
           // There are no available people to interact with =(
           continue;
@@ -60,7 +67,7 @@ public class Field extends Global {
         interactablePerson.beginInteraction();
 
         interactionQueue.push(new Interaction(p, interactablePerson));
-        // TODO: Add a new interactionDone event into the event queue
+        insertEvent(END_INTERACTION, time + Global.T);
       }
     }
   }
@@ -119,6 +126,7 @@ public class Field extends Global {
           i++;
           continue;
         }
+        System.out.println("Person added");
         people.add(new Person(line));
 			}
 			reader.close();
@@ -126,4 +134,8 @@ public class Field extends Global {
 			e.printStackTrace();
 		}
   }
+
+	public boolean squareWithinBounds(int[] square) {
+		return ((square[0] >= 0 && square[0] < 20) && (square[1] >= 0 && square[1] < 20));
+	}
 }
