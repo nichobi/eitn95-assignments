@@ -26,15 +26,11 @@ class State extends Global {
 	}
 
 	private void endInteraction() {
-		// TODO:
-		// 1) Retrieve the people who are finished from a interactions-FIFO-queue.
-		// 2) Save the other person in the list of interactions for both of the persons.
-		// 3) Set direction for each of the 2 persons.
-		// 4) Check if the simulation is done (i.e. everyone has met eachother).
+		field.endInteraction();
 	}
 
 	private void measure() {
-		results.add(interactedWithAll);
+		results.add(field.peopleDone());
 		insertEvent(MEASURE, time + Global.MEASURE_TIME);
 	}
 }

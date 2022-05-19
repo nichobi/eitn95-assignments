@@ -7,6 +7,7 @@ import java.util.*;
 
 public class GenerateSimulation {
     private final static String CONFIG_PATH = "A3/T2/.config";
+    public final static String CUSTOM_CONFIG_PATH = "A3/T2/test.conf";
     private static Properties config;
     private static double[] coordinates;
     private static Random random = new Random();
@@ -33,7 +34,6 @@ public class GenerateSimulation {
         } catch (Exception err) {
             err.printStackTrace();
         }
-        ;
     }
 
     private static double[] generateCoordinates(int n) {
@@ -48,8 +48,8 @@ public class GenerateSimulation {
         int n = coordinates.length / 2;
         try {
             for (int i = 0; i < n; i++) {
-                fw.write(Integer.toString(i) + Global.EQUALS + coordinates[2 * i] +
-                        Global.COMMA + coordinates[2 * i + 1] + "\n");
+                fw.write(Integer.toString(i) + Global.EQUALS + "[" + coordinates[2 * i] +
+                        Global.COMMA + coordinates[2 * i + 1] + "]\n");
             }
         } catch (IOException e) {
             e.printStackTrace();

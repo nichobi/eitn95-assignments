@@ -11,7 +11,7 @@ public class Person {
 	public Person(int id, double x, double y) {
 		this.talking = false;
 		this.id = id;
-		this.movementSpeed = Global.V;
+		this.movementSpeed = Global.getV();
 		this.direction = Util.generateDirection();
 		this.interactions = new HashSet<Person>();
 		this.x = x;
@@ -53,11 +53,12 @@ public class Person {
 		return this.y;
 	}
 
-	public void setInteracting(boolean talking) {
-		this.talking = talking;
+	public void beginInteraction() {
+		this.direction = Util.generateDirection();
+		talking = true;
 	}
 
-	public void interactedWith(Person p2) {
+	public void finishInteraction(Person p2) {
 		interactions.add(p2);
 		talking = false;
 	}
@@ -67,6 +68,9 @@ public class Person {
 	 * as sqrt(x^2 + y^2) according to Björn.
 	 */
 	public void move() {
+		if(talking) {
+			return;
+		}
 		double movement = Global.MOVE_TIME * this.movementSpeed;
 
 		// Move in X direction
@@ -84,7 +88,7 @@ public class Person {
 		}
 	}
 
-	public boolean isSameBox(int x, int y) {
+	public boolean isSameSquare(int x, int y) {
 		return (x == Math.floor(this.x) && y == Math.floor(this.y));
 	}
 
