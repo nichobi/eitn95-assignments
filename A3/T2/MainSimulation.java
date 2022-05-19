@@ -14,6 +14,8 @@ public class MainSimulation extends Global {
 		HashMap<Integer, Integer> meetingDistr = new HashMap<>();
 		int meetingTime[] = new int[20];
 
+		initResultsFile();
+
 		while (Util.calculateConfidenceWidth(timeResults) > 50 || timeResults.size() < 100) {
 			Global.eventList = new EventListClass();
 			ArrayList<Person> persons = run();
@@ -37,7 +39,6 @@ public class MainSimulation extends Global {
 		}
 		System.out.println("Mean: " + total / timeResults.size());
 		System.out.println("Conf width: " + Util.calculateConfidenceWidth(timeResults));
-		//System.out.println("Meeting distr: " + meetingTimesString(meetingTime, timeResults.size()));
 		System.out.println("meeting distr2: " + meetingDistr.toString());
 		writeResults(meetingDistr);
 	}
@@ -50,18 +51,13 @@ public class MainSimulation extends Global {
 		insertEvent(MOVE, 0);
 		insertEvent(MEASURE, 0);
 
-		//initResultsFile();
-
 		// The main simulation loop
-		
 		while (actState.field.peopleDone() < Global.STUDENTS) {
 			actEvent = eventList.fetchEvent();
 			time = actEvent.eventTime;
 			actState.treatEvent(actEvent);
 		}
 		return actState.field.people;
-		//writeResults(actState.results);
-		//System.out.println("Done");
 	}
 
 	private static void initResultsFile() {
@@ -76,7 +72,6 @@ public class MainSimulation extends Global {
 			sc.close();
 		
 		} catch(NoSuchElementException e) {
-			//System.out.println("Is ok =)");
 			sc.close();
 			return;
 		} 
@@ -86,19 +81,11 @@ public class MainSimulation extends Global {
 		try {
 			FileWriter fw = new FileWriter(resultsFile);
 			for(Integer i : results.keySet()) {
-				fw.write(Integer.toString(i) + "\n");
+				fw.write(Integer.toString(i) + ", " + Integer.toString(results.get(i)) + "\n");
 			}
 			fw.close();
 		} catch (Exception err) {
 			err.printStackTrace();
 		}
-	}
-
-	private static String meetingTimesString(int[] meetingTimes, int iterations) {
-		String result = "\n";
-		for (int i = 0; i < 20; i++) {
-			result += "id " + Integer.toString(i) + ": " + Double.toString(meetingTimes[i]/iterations) + "\n";
-		}
-		return result;
 	}
 }

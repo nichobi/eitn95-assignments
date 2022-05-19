@@ -5,7 +5,7 @@ import java.util.Random;
 public class Global {
   public static Random rand = new Random();
   public static final int MOVE = 0, END_INTERACTION = 1, MEASURE = 2;
-  public static final double MOVE_TIME = 0.5, MEASURE_TIME = 1.0;
+  public static final double MOVE_TIME = 0.01, MEASURE_TIME = 1.0;
 
   public static double time = 0;
 

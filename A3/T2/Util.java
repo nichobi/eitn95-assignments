@@ -63,6 +63,10 @@ public class Util {
 		return rand.nextInt(8);
 	}
 
+	public static double generateDistance() {
+		return rand.nextDouble()*9 + 1;
+	}
+
 	public static double getExponential(double mean) {
 		double lambda = 1 / mean;
 		return Math.log(1 - rand.nextDouble()) / (-lambda);

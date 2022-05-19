@@ -6,12 +6,15 @@ public class Person {
 	private boolean talking;
 	private int id, direction;
 	public HashMap<Person, Integer> interactions;
-	private double movementSpeed, x, y;
+	private double movementSpeed, movementDistance, movementDone;
+	private double x, y;
 
 	public Person(int id, double x, double y) {
 		this.talking = false;
 		this.id = id;
 		this.movementSpeed = Global.getV();
+		this.movementDistance = Util.generateDistance();
+		this.movementDone = 0;
 		this.direction = Util.generateDirection();
 		this.interactions = new HashMap<Person, Integer>();
 		this.x = x;
@@ -34,7 +37,10 @@ public class Person {
 		this.talking = false;
 		this.movementSpeed = Global.getV();
 		this.direction = Util.generateDirection();
+		this.movementDistance = Util.generateDistance();
+		this.movementDone = 0;
 		this.interactions = new HashMap<Person, Integer>();
+		this.movementDone = 0;
 
 		this.id = id;
 		this.x = Double.parseDouble(coordArray[0]);
@@ -58,7 +64,7 @@ public class Person {
 	}
 
 	public void beginInteraction() {
-		this.direction = Util.generateDirection();
+		//this.direction = Util.generateDirection();
 		talking = true;
 	}
 
@@ -71,9 +77,6 @@ public class Person {
 		}
 
 		interactions.put(p2, meetingTime);
-
-
-		//interactions.add(p2);
 		talking = false;
 	}
 
@@ -86,6 +89,12 @@ public class Person {
 			return;
 		}
 		double movement = Global.MOVE_TIME * this.movementSpeed;
+
+		if(movementDone >= movementDistance) {
+			this.direction = Util.generateDirection();
+			this.movementDistance = Util.generateDistance();
+			movementDone = 0;
+		}
 
 		// Move in X direction
 		if (1 <= this.direction && this.direction <= 3) {
@@ -100,6 +109,7 @@ public class Person {
 		} else if (3 <= this.direction && this.direction <= 5) {
 			this.y -= movement;
 		}
+		movementDone += movement;
 	}
 
 	public boolean isSameSquare(int x, int y) {
@@ -118,6 +128,9 @@ public class Person {
 	}
 
 	public void moveIntoRoom() {
+		this.direction = Util.generateDirection();
+		this.movementDistance = Util.generateDistance();
+		this.movementDone = 0;
 		this.x = Math.min(this.x, Global.L - 0.00001);
 		this.x = Math.max(this.x, 0);
 		this.y = Math.min(this.y, Global.L - 0.00001);
