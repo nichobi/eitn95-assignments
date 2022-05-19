@@ -30,7 +30,8 @@ public class MainSimulation extends Global {
 					}
 				}
 			}
-			//System.out.println("Iteration " + Integer.toString(timeResults.size()) + ": ----- Conf width: " + Util.calculateConfidenceWidth(timeResults));
+			//System.out.println("Iteration " + Integer.toString(timeResults.size()) +
+			//		": ----- Conf width: " + Util.calculateConfidenceWidth(timeResults));
 		}
 		
 		double total = 0;
@@ -63,7 +64,7 @@ public class MainSimulation extends Global {
 	private static void initResultsFile() {
 		Scanner sc = new Scanner(System.in);
 
-		System.out.println("Enter file name to write results to:");
+		System.out.println("Enter file name to write results to (press enter for results.txt)");
 		try {
 			String str = sc.nextLine();
 			if(str.length() != 0) {
