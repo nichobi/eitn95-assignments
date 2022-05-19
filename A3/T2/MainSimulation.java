@@ -38,7 +38,7 @@ public class MainSimulation extends Global {
 
 				// How many total hours you have talked
 				if (timeTalkedDistr.get(interactionTime) != null) {
-					timeTalkedDistr.put(interactionTime, meetingDistr.get(interactionTime) + 1);
+					timeTalkedDistr.put(interactionTime, timeTalkedDistr.get(interactionTime) + 1);
 				} else {
 					timeTalkedDistr.put(interactionTime, 1);
 				}
@@ -53,7 +53,6 @@ public class MainSimulation extends Global {
 		}
 		System.out.println("Mean: " + total / timeResults.size());
 		System.out.println("Conf width: " + Util.calculateConfidenceWidth(timeResults));
-		System.out.println("meeting distr2: " + meetingDistr.toString());
 		writeResults(meetingDistr, resultsFile);
 		writeResults(timeTalkedDistr, resultsFile + ".time");
 	}
