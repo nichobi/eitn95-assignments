@@ -16,7 +16,7 @@ public class MainSimulation extends Global {
 
 		initResultsFile();
 
-		while (Util.calculateConfidenceWidth(timeResults) > 50 || timeResults.size() < 100) {
+		while (Util.calculateConfidenceWidth(timeResults) > 30 || timeResults.size() < 100) {
 			Global.eventList = new EventListClass();
 			ArrayList<Person> persons = run();
 			timeResults.add(time);
