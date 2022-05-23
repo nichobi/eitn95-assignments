@@ -6,7 +6,7 @@ class State extends GlobalSimulation {
 	// Here follows the state variables and other variables that might be needed
 	// e.g. for measurements
 	public int noMeasurements = 0;
-	public int totalServers = N, activeServers = 0;
+	public int totalServers = GlobalSimulation.N, activeServers = 0;
 	public int[] results;
 
 	Random slump = new Random(); // This is just a random number generator
@@ -32,10 +32,10 @@ class State extends GlobalSimulation {
 	// simpler to write a method if things are getting more complicated than this.
 	private void arrival() {
 		if (activeServers < totalServers) {
-			insertEvent(READY, time + X);
+			insertEvent(READY, time + GlobalSimulation.X);
 			activeServers++;
 		}
-		insertEvent(ARRIVAL, time + getExponential(LAMBDA));
+		insertEvent(ARRIVAL, time + getExponential(GlobalSimulation.LAMBDA));
 	}
 
 	private void ready() {
@@ -44,10 +44,10 @@ class State extends GlobalSimulation {
 
 	private void measure() {
 		if (results == null) {
-			results = new int[M];
+			results = new int[GlobalSimulation.M];
 		}
 		results[noMeasurements++] = activeServers;
-		insertEvent(MEASURE, time + T);
+		insertEvent(MEASURE, time + GlobalSimulation.T);
 	}
 
 	private double getExponential(double lambda) {
