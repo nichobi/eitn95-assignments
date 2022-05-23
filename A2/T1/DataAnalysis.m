@@ -27,8 +27,7 @@ for i=1:6
             M = 4000;
         end
         
-        [min, max] = thresholds(95, t(:, 2), i);
-        l = max-min;
+        l = thresholds(t(:, 2));
         fprintf('Interval length for test %d (T=%d, M=%d): %d \n', ...
             i, T, M, l);
     end
@@ -36,23 +35,16 @@ end
 
 % Calculates the thresholds for a given set of measurements, then plots
 % the probability along with the threshold.
-function [min, max] = thresholds(percentile, A, i)
-    imageFile = sprintf('./results/Task-%d-threshold.png', i);
+function [width] = thresholds(A)
+    confLevel = 1.96; % For 95%
+    size = length(A);
+    m = mean(A);
     
-    % Remove the 20 first values since they might be in the transient phase
-    [M, ~] = size(A);
-    valid = A(20:M);
-    M = M - 20;
-    
-    srtd = sort(valid);
-    remove = round(M*(100-percentile)/200);
-    min = srtd(remove + 1);
-    max = srtd(M-remove);
-    
-    figure;
-    plot(srtd);
-    yline(min, 'r');
-    yline(max, 'r');
-    ylim([0 70]);
-    saveas(gcf, imageFile)
+    sqDiff = 0;
+    for i=1:size
+        sqDiff = sqDiff + ((A(i) - m)^2);
+    end
+    var = sqDiff/size;
+    std = sqrt(var);
+    width = confLevel * std/sqrt(size);
 end
