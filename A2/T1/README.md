@@ -13,13 +13,13 @@ Approximately 200 seconds.
 
 
 ## 4) Find the length of the 95 % confidence interval.
-The minimum and maximum thresholds are 29-52 which gives a length of 23.95% of the time the amount of customers will vary from the mean by 23/2 customers.
-
+Interval length for test 4 (T=4, M=1000): 0.3678158
 
 ## 5) How long will the confidence interval be? Explain the result.
-The minimum and maximum thresholds are 28-53 which gives a length of 25. The length remains roughly the same but the interval seems slightly larger.
+Interval length for test 5 (T=1, M=4000): 0.2025689
 
 
 ## 6) How long is the confidence interval? Explain the result.
-The minimum and maximum thresholds are 28-53 which gives a length of 25. It seems like increasing the time between measurements does not affect the variance of the measurements.
+Interval length for test 6 (T=4, M=4000): 0.1926397
 
+The distribution and confidence interval for subtask 4-6 stays the same, the only thing that increases is the sample size. Since we increase the sample size by 4x for subtasks 5-6 the interval should be decreased by $\frac{\sqrt{4n}}{\sqrt{n}} = 2$ times, which it roughly is. For subtask 5 and 6 we can see that the time between samples does not affect the interval.
